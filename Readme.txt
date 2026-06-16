@@ -1,27 +1,27 @@
-# ExpenseTracker - Personal Finance Dashboard
+ExpenseTracker - Personal Finance Dashboard
 
 A full-stack personal finance dashboard with automatic transaction categorization, real-time analytics, and persistent data storage.
 
 ---
 
-## Overview
+Overview
 
 ExpenseTracker is a complete financial management application that helps users track their spending, categorize transactions automatically, and visualize their financial health. Built with modern web technologies, it features a professional banking-style interface, CSV import/export capabilities, and intelligent auto-categorization.
 
 ---
 
-## Features
+Features
 
-### Core Features
+Core Features
 
-- **Smart Auto-Categorization**: Automatically categorizes transactions into 9 categories (Income, Food & Dining, Transport, Shopping, Bills & Utilities, Entertainment, Healthcare, Travel, Other)
+Smart Auto-Categorization**: Automatically categorizes transactions into 9 categories (Income, Food & Dining, Transport, Shopping, Bills & Utilities, Entertainment, Healthcare, Travel, Other)
 - **Interactive Dashboard**: Real-time visualizations including doughnut charts for spending by category and line charts for income vs expense trends
 - **Transaction Management**: Complete CRUD operations with instant search and filtering
 - **CSV Import/Export**: Bulk upload bank statements and export reports
 - **Data Persistence**: Full-stack integration with SQLite database for reliable data storage
 - **Financial Analytics**: Instant calculations of total balance, income, expenses, and savings rate
 
-### Dashboard Features
+Dashboard Features
 
 - **Total Balance**: Real-time account balance
 - **Total Income**: Track all income sources
@@ -32,24 +32,10 @@ ExpenseTracker is a complete financial management application that helps users t
 - **Search Transactions**: Find transactions by description or category
 - **Filter Transactions**: View All, Income only, or Expenses only
 
-### Auto-Categorization Rules
 
-| Category | Keywords |
-|----------|----------|
-| Income | salary, paycheck, deposit, refund, bonus, freelance |
-| Food & Dining | starbucks, restaurant, cafe, pizza, groceries, lunch |
-| Transport | uber, lyft, taxi, gas, fuel, parking, bus, train |
-| Shopping | amazon, walmart, target, best buy, ebay, store, mall |
-| Bills & Utilities | electric, water, internet, netflix, spotify, phone, rent |
-| Entertainment | cinema, movie, theater, concert, hulu, disney, gaming |
-| Healthcare | pharmacy, doctor, hospital, clinic, dental, medical |
-| Travel | flight, hotel, airbnb, booking, vacation, trip |
+Tech Stack
 
----
-
-## Tech Stack
-
-### Frontend
+Frontend
 | Technology | Purpose |
 |------------|---------|
 | HTML5 | Structure and markup |
@@ -68,14 +54,14 @@ ExpenseTracker is a complete financial management application that helps users t
 | Uvicorn | ASGI server |
 | Python-Multipart | CSV file upload handling |
 
-### Development Tools
+Development Tools
 - Git for version control
 - VS Code as the primary IDE
 - PowerShell for command line operations
 
 ---
 
-## Project Structure
+Project Structure
 
 
 How to Run FastAPI in Terminal - Step by Step
