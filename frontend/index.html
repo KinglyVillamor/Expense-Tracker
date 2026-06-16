@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExpenseTracker | Digital Banking Platform</title>
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Internal Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo-area">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-gem"></i>
+                </div>
+                <span class="logo-text">ExpenseTracker</span>
+            </div>
+        </div>
+        <div class="nav-menu">
+            <div class="nav-item active">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-exchange-alt"></i>
+                <span>Transactions</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-chart-line"></i>
+                <span>Analytics</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-piggy-bank"></i>
+                <span>Savings</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-credit-card"></i>
+                <span>Cards</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">  
+        <!-- Top Navigation -->
+        <div class="top-nav">
+            <div class="page-title">
+                <h1>ExpenseTracker Dashboard</h1>
+                <p>Track spending, automate categories, and master your finances</p>
+            </div>
+            <div class="top-actions">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search transactions...">
+                </div>
+                <div class="notification-btn">
+                    <i class="far fa-bell" style="font-size: 1.2rem;"></i>
+                    <span class="badge">3</span>
+                </div>
+                <div class="user-profile">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span>Kingly Villamor</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-container">
+            <div class="stat-card-premium">
+                <div class="stat-header">
+                    <span class="stat-label">Total Balance</span>
+                    <div class="stat-icon" style="background: #eef2ff; color: #3b82f6;">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                </div>
+                <div class="stat-number" id="totalBalance">$0.00</div>
+                <div class="stat-trend trend-up">
+                    <i class="fas fa-arrow-up"></i> +2.5% from last month
+                </div>
+            </div>
+            <div class="stat-card-premium">
+                <div class="stat-header">
+                    <span class="stat-label">Total Income</span>
+                    <div class="stat-icon" style="background: #d1fae5; color: #10b981;">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                </div>
+                <div class="stat-number" id="totalIncome">$0.00</div>
+                <div class="stat-trend">This month</div>
+            </div>
+            <div class="stat-card-premium">
+                <div class="stat-header">
+                    <span class="stat-label">Total Expenses</span>
+                    <div class="stat-icon" style="background: #fee2e2; color: #ef4444;">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
+                </div>
+                <div class="stat-number" id="totalExpenses">$0.00</div>
+                <div class="stat-trend">This month</div>
+            </div>
+            <div class="stat-card-premium">
+                <div class="stat-header">
+                    <span class="stat-label">Savings Rate</span>
+                    <div class="stat-icon" style="background: #fef3c7; color: #f59e0b;">
+                        <i class="fas fa-piggy-bank"></i>
+                    </div>
+                </div>
+                <div class="stat-number" id="savingsRate">0%</div>
+                <div class="stat-trend">of total income</div>
+            </div>
+        </div>
+
+        <!-- Action Bar -->
+        <div class="action-bar">
+            <button class="btn-primary-premium" onclick="openAddModal()">
+                <i class="fas fa-plus"></i> New Transaction
+            </button>
+            <button class="btn-secondary-premium" onclick="document.getElementById('csvFileInput').click()">
+                <i class="fas fa-file-import"></i> Import CSV
+            </button>
+            <input type="file" id="csvFileInput" accept=".csv" style="display: none;" onchange="uploadCSV(this.files[0])">
+            <button class="btn-secondary-premium" onclick="exportReport()">
+                <i class="fas fa-download"></i> Export Report
+            </button>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts-grid-premium">
+            <div class="chart-card-premium">
+                <div class="chart-header">
+                    <h3>Spending by Category</h3>
+                    <span class="chart-date">This Month</span>
+                </div>
+                <canvas id="categoryChart"></canvas>
+            </div>
+            <div class="chart-card-premium">
+                <div class="chart-header">
+                    <h3>Income vs Expenses Trend</h3>
+                    <span class="chart-date">Last 6 Months</span>
+                </div>
+                <canvas id="trendChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Transactions Table -->
+        <div class="transactions-wrapper">
+            <div class="transactions-header">
+                <h3><i class="fas fa-clock"></i> Recent Transactions</h3>
+                <div class="filter-buttons">
+                    <span class="filter-chip active" data-filter="all">All</span>
+                    <span class="filter-chip" data-filter="Income">Income</span>
+                    <span class="filter-chip" data-filter="Expenses">Expenses</span>
+                </div>
+            </div>
+            <div class="transactions-table">
+                <table id="transactionsTable">
+                    <thead>
+                        <tr><th>Description</th><th>Date</th><th>Category</th><th>Amount</th><th></th></tr>
+                    </thead>
+                    <tbody id="transactionsList">
+                        <tr><td colspan="5" style="text-align:center; padding:3rem;">Loading transactions...</td></tr>
+                    </tbody>
+                 </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Connection Status -->
+    <div id="connectionStatus" class="connection-status status-offline">
+        <i class="fas fa-plug"></i> Connecting...
+    </div>
+
+    <!-- Modal -->
+    <div id="addModal" class="modal-premium">
+        <div class="modal-content-premium">
+            <div class="modal-header-premium">
+                <h3>Add Transaction</h3>
+                <span class="close-modal" onclick="closeAddModal()">&times;</span>
+            </div>
+            <form id="txForm">
+                <div class="form-group-premium">
+                    <label>Amount ($)</label>
+                    <input type="number" id="amount" step="0.01" required placeholder="0.00">
+                </div>
+                <div class="form-group-premium">
+                    <label>Description</label>
+                    <input type="text" id="description" required placeholder="e.g., Salary, Groceries, Uber...">
+                </div>
+                <div class="form-group-premium">
+                    <label>Category</label>
+                    <select id="categorySelect">
+                        <option value="auto">🤖 Auto-detect</option>
+                        <option value="Income">💰 Income</option>
+                        <option value="Food & Dining">🍕 Food & Dining</option>
+                        <option value="Transport">🚗 Transport</option>
+                        <option value="Shopping">🛍️ Shopping</option>
+                        <option value="Bills & Utilities">💡 Bills & Utilities</option>
+                        <option value="Entertainment">🎬 Entertainment</option>
+                        <option value="Healthcare">🏥 Healthcare</option>
+                        <option value="Travel">✈️ Travel</option>
+                        <option value="Other">📦 Other</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary-premium" style="width:100%; justify-content:center;">Add Transaction</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/script.js"></script>
+</body>
+</html>
